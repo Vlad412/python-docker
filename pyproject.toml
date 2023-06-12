@@ -4,13 +4,15 @@ version = "0.1.0"
 description = "Testing docker with python"
 authors = ["Vlad <22870742+Vlad412@users.noreply.github.com>"]
 readme = "README.md"
-packages = [{include = "phone_test"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.31.0"
 schedule = "^1.2.0"
 beautifulsoup4 = "^4.12.2"
+psycopg = "^3.1.9"
+python-dotenv = "^1.0.0"
+psycopg-binary = "^3.1.9"
 
 
 [build-system]

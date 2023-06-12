@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+    app:
+        build:
+            context: .
+        ports:
+            - 8000:5001
+        volumes:
+            - ./:/app
+        depends_on:
+            db:
+                condition: service_healthy
+        environment:
+            - DB_NAME=social_experiment
+            - DB_USER=john
+            - DB_PASSWORD=database_password
+            - DB_HOST=db
+            - TARGET_URL=https://www.google.com
+
+    db:
+        image: postgres:15-alpine
+        restart: always
+        environment:
+            POSTGRES_USER: john
+            POSTGRES_PASSWORD: database_password
+            POSTGRES_DB: social_experiment
+        volumes:
+            - db-data:/var/lib/postgres
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -d postgres -U postgres" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    db-data:
